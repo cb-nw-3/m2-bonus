@@ -1,0 +1,46 @@
+body{
+    max-height: 100vw;
+    background: #000000;
+    margin: 10px
+}
+
+#canvas{
+    height: 100%;
+    width: 100%;
+}
+
+.class1{
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(242,128,15,1) 34%, rgba(249,244,239,1) 100%);
+}
+
+.class2{
+    background: #f9f4ef;
+}
+
+.class3{
+    background: linear-gradient(90deg, rgba(113,96,64,1) 0%, rgba(140,120,81,1) 34%, rgba(255,255,254,1) 100%);
+}
+
+.class4{
+    background: #8c7851;
+    mix-blend-mode: difference;
+}
+
+.class5{
+    background:#fffffe;
+}
+
+.class6{
+    background:#f25042;
+}
+
+#canvas div{
+    position: absolute;
+}
+
+#refresh{
+    position: absolute;
+    z-index: 1;
+    border: none;
+    outline: none;
+}
