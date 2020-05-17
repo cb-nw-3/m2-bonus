@@ -4,12 +4,12 @@
 let canvas = document.querySelector('#canvas');
 let html = document.querySelector('html');
 let container = document.querySelector('#canvas');
-let sliderWidth = document.querySelector('#sliderWidth');
-let sliderHeight = document.querySelector('#sliderHeight');
-let sliderGradient = document.querySelector('#sliderGradient');
-let widthValue = document.querySelector('#widthValue');
-let heightValue = document.querySelector('#heightValue');
-let gradientValue = document.querySelector('#gradientValue');
+let sliderWidth;
+let sliderHeight;
+let sliderGradient;
+let widthLiveValue = document.querySelector('#widthValue');
+let heightLiveValue = document.querySelector('#heightValue');
+let gradientLiveValue = document.querySelector('#gradientValue');
 // initialize bunch of variables
 let newRect;
 let randomColor;
@@ -46,7 +46,7 @@ let colors = [
   "#FF69FF"
 ];
 
-function generateArt(sliderWidth = 20, sliderHeight = 10, sliderGradient = 100) {
+function generateArt(widthValue = 20, heightValue = 10, gradientValue = 100) {
   // create 2000 rectangles
   for (let i = 0; i <= 1000; i++) {
     // random number for color
@@ -56,9 +56,9 @@ function generateArt(sliderWidth = 20, sliderHeight = 10, sliderGradient = 100) 
     // random position for left value 0 to 100
     randomLateralPosition = Math.random() * 100;
     // random width between 20 and 30
-    randomWidth = (Math.random() * 10) + 20 + sliderWidth;
+    randomWidth = (Math.random() * 10) + 20 + widthValue;
     // random height between 20 and 30
-    randomHeight = (Math.random() * 10) + 10 + sliderHeight;
+    randomHeight = (Math.random() * 10) + 10 + heightValue;
     // random angle for rectangle rotation
     randomAngle = Math.random() * 360;
     // random radius for border
@@ -73,7 +73,7 @@ function generateArt(sliderWidth = 20, sliderHeight = 10, sliderGradient = 100) 
     newRect = document.createElement('div');
     // style the rectangle with styles
     newRect.style.background = colors[randomColor];
-    newRect.style.background = `linear-gradient(90deg, ${colors[randomColor]} ${sliderGradient}%, #f1f1f1 100%)`;
+    newRect.style.background = `linear-gradient(90deg, ${colors[randomColor]} ${gradientValue}%, #f1f1f1 100%)`;
     newRect.style.width = `${randomWidth}px`;
     newRect.style.height = `${randomHeight}px`;
     newRect.style.left = `${randomLateralPosition}%`;
@@ -87,17 +87,52 @@ function generateArt(sliderWidth = 20, sliderHeight = 10, sliderGradient = 100) 
     canvas.appendChild(newRect);
   }
 }
-// initial function call
-generateArt();
 
-html.addEventListener('click', function() {
+function resetArt() {
+  let a = parseInt(document.querySelector('#sliderWidth').value);
+  let b = parseInt(document.querySelector('#sliderHeight').value);
+  let c = parseInt(document.querySelector('#sliderGradient').value);
+
   // remove childs until firstChild is false
   while (canvas.firstChild) {
     canvas.removeChild(canvas.lastElementChild);
   }
-  generateArt()
-})
-// remove the propagation from clicks on container/canvas
-container.addEventListener('click', e => {
+  generateArt(a, b, c)
+}
+
+function stopPropagation(e){
   e.stopPropagation();
+}
+// initial function call
+generateArt();
+
+html.addEventListener('click', resetArt)
+
+document.querySelector('#sliderWidth').addEventListener('change', function(){
+  let a = parseInt(document.querySelector('#sliderWidth').value);
+  let b = parseInt(document.querySelector('#sliderHeight').value);
+  let c = parseInt(document.querySelector('#sliderGradient').value);
+  widthLiveValue.innerText = `${document.querySelector('#sliderWidth').value}`;
+  resetArt(a, b, c);
 })
+document.querySelector('#sliderHeight').addEventListener('change', function(){
+  let a = parseInt(document.querySelector('#sliderWidth').value);
+  let b = parseInt(document.querySelector('#sliderHeight').value);
+  let c = parseInt(document.querySelector('#sliderGradient').value);
+  heightLiveValue.innerText = `${document.querySelector('#sliderHeight').value}`;
+  resetArt(a, b, c);
+})
+document.querySelector('#sliderGradient').addEventListener('change', function(){
+  let a = parseInt(document.querySelector('#sliderWidth').value);
+  let b = parseInt(document.querySelector('#sliderHeight').value);
+  let c = parseInt(document.querySelector('#sliderGradient').value);
+  gradientLiveValue.innerText = `${document.querySelector('#sliderGradient').value}`;
+  resetArt(a, b, c);
+})
+
+
+// remove the propagation from clicks on container/canvas
+container.addEventListener('click', stopPropagation)
+document.querySelector('#sliderWidth').addEventListener('click', stopPropagation)
+document.querySelector('#sliderHeight').addEventListener('click', stopPropagation)
+document.querySelector('#sliderGradient').addEventListener('click', stopPropagation)
