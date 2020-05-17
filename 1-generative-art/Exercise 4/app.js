@@ -1,4 +1,4 @@
-// alert('Click on the dark border for a new piece of art')
+alert('Click on the dark border for a new piece of art')
 
 // select the canvas and html
 let canvas = document.querySelector('#canvas');
@@ -56,7 +56,7 @@ function generateArt(widthValue = 20, heightValue = 10, gradientValue = 100) {
     // random position for left value 0 to 100
     randomLateralPosition = Math.random() * 100;
     // random width between 20 and 30
-    randomWidth = (Math.random() * 10) + 20 + widthValue;
+    randomWidth = (Math.random() * 10) + 10 + widthValue;
     // random height between 20 and 30
     randomHeight = (Math.random() * 10) + 10 + heightValue;
     // random angle for rectangle rotation
@@ -89,10 +89,10 @@ function generateArt(widthValue = 20, heightValue = 10, gradientValue = 100) {
 }
 
 function resetArt() {
+  // grab the values in the input and change it to numbers
   let a = parseInt(document.querySelector('#sliderWidth').value);
   let b = parseInt(document.querySelector('#sliderHeight').value);
   let c = parseInt(document.querySelector('#sliderGradient').value);
-
   // remove childs until firstChild is false
   while (canvas.firstChild) {
     canvas.removeChild(canvas.lastElementChild);
@@ -103,35 +103,53 @@ function resetArt() {
 function stopPropagation(e){
   e.stopPropagation();
 }
-// initial function call
+
 generateArt();
 
 html.addEventListener('click', resetArt)
 
-document.querySelector('#sliderWidth').addEventListener('change', function(){
-  let a = parseInt(document.querySelector('#sliderWidth').value);
-  let b = parseInt(document.querySelector('#sliderHeight').value);
-  let c = parseInt(document.querySelector('#sliderGradient').value);
-  widthLiveValue.innerText = `${document.querySelector('#sliderWidth').value}`;
-  resetArt(a, b, c);
-})
-document.querySelector('#sliderHeight').addEventListener('change', function(){
-  let a = parseInt(document.querySelector('#sliderWidth').value);
-  let b = parseInt(document.querySelector('#sliderHeight').value);
-  let c = parseInt(document.querySelector('#sliderGradient').value);
-  heightLiveValue.innerText = `${document.querySelector('#sliderHeight').value}`;
-  resetArt(a, b, c);
-})
-document.querySelector('#sliderGradient').addEventListener('change', function(){
-  let a = parseInt(document.querySelector('#sliderWidth').value);
-  let b = parseInt(document.querySelector('#sliderHeight').value);
-  let c = parseInt(document.querySelector('#sliderGradient').value);
-  gradientLiveValue.innerText = `${document.querySelector('#sliderGradient').value}`;
-  resetArt(a, b, c);
-})
+// document.querySelector('#sliderWidth').addEventListener('change', function(){
+//   let a = parseInt(document.querySelector('#sliderWidth').value);
+//   let b = parseInt(document.querySelector('#sliderHeight').value);
+//   let c = parseInt(document.querySelector('#sliderGradient').value);
+//   widthLiveValue.innerText = `${document.querySelector('#sliderWidth').value}`;
+//   resetArt(a, b, c);
+// })
+// document.querySelector('#sliderHeight').addEventListener('change', function(){
+//   let a = parseInt(document.querySelector('#sliderWidth').value);
+//   let b = parseInt(document.querySelector('#sliderHeight').value);
+//   let c = parseInt(document.querySelector('#sliderGradient').value);
+//   heightLiveValue.innerText = `${document.querySelector('#sliderHeight').value}`;
+//   resetArt(a, b, c);
+// })
+// document.querySelector('#sliderGradient').addEventListener('change', function(){
+//   let a = parseInt(document.querySelector('#sliderWidth').value);
+//   let b = parseInt(document.querySelector('#sliderHeight').value);
+//   let c = parseInt(document.querySelector('#sliderGradient').value);
+//   gradientLiveValue.innerText = `${document.querySelector('#sliderGradient').value}`;
+//   resetArt(a, b, c);
+// })
 
-
-// remove the propagation from clicks on container/canvas
+let sliderFunction = function() {
+  // grab input values and transform it in a number
+  let a = parseInt(document.querySelector('#sliderWidth').value);
+  let b = parseInt(document.querySelector('#sliderHeight').value);
+  let c = parseInt(document.querySelector('#sliderGradient').value);
+  // update slider current value
+  if (this.id === 'sliderWidth') {
+    widthLiveValue.innerText = `${document.querySelector('#sliderWidth').value}`;
+  } else if (this.id === 'sliderHeight') {
+    heightLiveValue.innerText = `${document.querySelector('#sliderHeight').value}`;
+  } else if (this.id === 'sliderGradient') {
+    gradientLiveValue.innerText = `${document.querySelector('#sliderGradient').value}`;
+  }
+  resetArt(a, b, c);
+}
+// add the change event listener to each slider
+document.querySelector('#sliderWidth').addEventListener('change', sliderFunction)
+document.querySelector('#sliderHeight').addEventListener('change', sliderFunction)
+document.querySelector('#sliderGradient').addEventListener('change', sliderFunction)
+// remove the propagation from clicks on container/canvas and sliders
 container.addEventListener('click', stopPropagation)
 document.querySelector('#sliderWidth').addEventListener('click', stopPropagation)
 document.querySelector('#sliderHeight').addEventListener('click', stopPropagation)
