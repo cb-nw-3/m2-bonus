@@ -41,7 +41,7 @@ let colors = [
 ];
 
 function generateArt() {
-  // create 2000 rectangles
+  // create rectangles
   for (let i = 0; i <= 1000; i++) {
     // random number for color
     randomColor = Math.floor(Math.random() * 8);

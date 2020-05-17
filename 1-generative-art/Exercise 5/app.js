@@ -1,4 +1,4 @@
-alert('Click on the dark border for a new piece of art')
+// alert('Click on the dark border for a new piece of art')
 
 // select the canvas and html
 let canvas = document.querySelector('#canvas');
@@ -22,6 +22,7 @@ let borderRadius;
 let boxShadowBlur;
 let boxShadowSpread;
 let randomMixBlend;
+let rectangleInterval;
 // array of different mix blend mode
 let mixBlendMode = [
   'normal',
@@ -47,8 +48,8 @@ let colors = [
 ];
 
 function generateArt(widthValue = 20, heightValue = 10, gradientValue = 100) {
-  // create rectangles
-  for (let i = 0; i <= 1000; i++) {
+  // create rectangles with interval
+  rectangleInterval = setInterval(function() {
     // random number for color
     randomColor = Math.floor(Math.random() * 8);
     // random position for top value 0 to 100
@@ -81,11 +82,17 @@ function generateArt(widthValue = 20, heightValue = 10, gradientValue = 100) {
     newRect.style.transform = `rotate(${randomAngle}deg)`
     newRect.style.position = 'absolute';
     newRect.style.borderRadius = `${borderRadius}px`;
-    // // newRect.style.mixBlendMode = mixBlendMode[randomMixBlend];
-    // // newRect.style.boxShadow = `0px 0px ${boxShadowBlur}px ${boxShadowSpread}px rgba(0, 0, 0, 1)`;
+// // // newRect.style.mixBlendMode = mixBlendMode[randomMixBlend];
+// // // newRect.style.boxShadow = `0px 0px ${boxShadowBlur}px ${boxShadowSpread}px rgba(0, 0, 0, 1)`;
     // add rectangle to canvas
     canvas.appendChild(newRect);
-  }
+    // add transition class
+    newRect.classList.add('fadeIn');
+    // remove interval after 1000 rectangles on screen
+    if (canvas.children.length >= 1000) {
+      clearInterval(rectangleInterval);
+    }
+  }, 5)
 }
 
 function resetArt() {
@@ -93,6 +100,8 @@ function resetArt() {
   let a = parseInt(document.querySelector('#sliderWidth').value);
   let b = parseInt(document.querySelector('#sliderHeight').value);
   let c = parseInt(document.querySelector('#sliderGradient').value);
+  // clear interval if input is changed
+  clearInterval(rectangleInterval);
   // remove childs until firstChild is false
   while (canvas.firstChild) {
     canvas.removeChild(canvas.lastElementChild);
