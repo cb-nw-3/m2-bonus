@@ -10,11 +10,12 @@ function generateArt() {
       const BRUSH = document.createElement("canvas");
       BRUSH.style.width = `${randomSize()}%`;
       BRUSH.style.height = `${randomSize()}%`;
-      BRUSH.style.backgroundColor = randomBackground();
+      BRUSH.style.backgroundImage = randomBackground();
       BRUSH.style.position = "absolute";
       BRUSH.style.top = `${randomPosition()}%`;
       BRUSH.style.left = `${randomPosition()}%`;
       BRUSH.style.transform = `rotate(${randomAngle()}deg)`;
+      BRUSH.style.borderRadius = `${randomPosition()}px`;
       CANVAS.appendChild(BRUSH);
     }, 50 * i);
   }
@@ -33,7 +34,7 @@ function randomColor() {
 }
 
 function randomBackground() {
-  return `linear-gradient(${randomColor()}, ${randomColor()})`;
+  return `linear-gradient(${randomColor()}, ${randomColor()}, ${randomColor()})`;
 }
 
 function randomPosition() {
