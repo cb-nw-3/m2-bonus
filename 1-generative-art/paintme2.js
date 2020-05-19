@@ -96,12 +96,12 @@ function randomOpacity() {
 }
 
 function cleanUp() {
-  for (let i = 0; i <= 500; i++) {
-    const BRUSH = document.querySelector("canvas");
-    CANVAS.removeChild(BRUSH);
-  }
+  const BRUSHES = document.querySelectorAll("canvas");
+  BRUSHES.forEach((element) => element.parentNode.removeChild(element));
+
   generateArt();
 }
+
 generateArt();
 
 const inputs = document.querySelectorAll("input");
