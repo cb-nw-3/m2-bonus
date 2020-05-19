@@ -9,7 +9,7 @@ const LABEL2 = document.createElement("label");
 const RANGE3 = document.createElement("input");
 const LABEL3 = document.createElement("label");
 let size = 25;
-let radius = 0;
+let radius = 50;
 let opacity = 1;
 
 BARNAV.id = "barnav";
@@ -67,6 +67,9 @@ function generateArt() {
       BRUSH.style.transform = `rotate(${randomAngle()}deg)`;
       BRUSH.style.borderRadius = `${randomBorder()}px`;
       BRUSH.style.opacity = opacity;
+      // BRUSH.style.boxShadow = "0 0 5px #999999";
+
+      BRUSH.style.boxShadow = `${border()}px ${border()}px ${border()}px ${randomColor()}`;
       // BRUSH.getContext("2d").drawImage(
       //   IMAGE,
       //   10,
@@ -106,6 +109,10 @@ function randomPositionX() {
 
 function randomPositionY() {
   return Math.floor(Math.random() * 100) + 3;
+}
+
+function border() {
+  return Math.floor(Math.random() * -6) + 13;
 }
 
 function randomBorder() {
