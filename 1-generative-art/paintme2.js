@@ -4,6 +4,7 @@ const BTNREFRESH = document.createElement("button");
 const IMAGE = document.createElement("img");
 const RANGE1 = document.createElement("input");
 const LABEL1 = document.createElement("label");
+let size = 25;
 
 BARNAV.id = "barnav";
 CANVAS.id = "canvas";
@@ -18,7 +19,7 @@ IMAGE.id = "keys";
 LABEL1.innerText = "Size:";
 RANGE1.type = "range";
 RANGE1.min = "10";
-RANGE1.max = "200";
+RANGE1.max = "35";
 
 document.body.appendChild(BARNAV);
 BARNAV.appendChild(BTNREFRESH);
@@ -59,7 +60,7 @@ function generateArt() {
 }
 
 function randomSize() {
-  return Math.floor(Math.random() * 25) + 1;
+  return Math.floor(Math.random() * size) + 1;
 }
 
 function randomColor() {
@@ -109,7 +110,5 @@ inputs.forEach((input) => input.addEventListener("change", handleUpdate));
 inputs.forEach((input) => input.addEventListener("mousemove", handleUpdate));
 
 function handleUpdate() {
-  // const suffix = this.dataset.sizing || '';
-  // document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
-  console.log("work in process");
+  size = this.value;
 }
