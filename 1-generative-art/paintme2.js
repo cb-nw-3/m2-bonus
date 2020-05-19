@@ -4,7 +4,13 @@ const BTNREFRESH = document.createElement("button");
 const IMAGE = document.createElement("img");
 const RANGE1 = document.createElement("input");
 const LABEL1 = document.createElement("label");
+const RANGE2 = document.createElement("input");
+const LABEL2 = document.createElement("label");
+const RANGE3 = document.createElement("input");
+const LABEL3 = document.createElement("label");
 let size = 25;
+let radius = 0;
+let opacity = 1;
 
 BARNAV.id = "barnav";
 CANVAS.id = "canvas";
@@ -17,14 +23,33 @@ BTNREFRESH.innerText = "Refresh";
 IMAGE.src = "keys.png";
 IMAGE.id = "keys";
 LABEL1.innerText = "Size:";
+RANGE1.id = "size";
 RANGE1.type = "range";
 RANGE1.min = "10";
 RANGE1.max = "35";
+RANGE1.value = size;
+LABEL2.innerText = "Border Radius";
+RANGE2.id = "radius";
+RANGE2.type = "range";
+RANGE2.min = "0";
+RANGE2.max = "100";
+RANGE2.value = radius;
+LABEL3.innerText = "Opacity";
+RANGE3.id = "opacity";
+RANGE3.type = "range";
+RANGE3.min = "0";
+RANGE3.max = "1";
+RANGE3.step = "0.1";
+RANGE3.value = opacity;
 
 document.body.appendChild(BARNAV);
 BARNAV.appendChild(BTNREFRESH);
 BARNAV.appendChild(LABEL1);
 BARNAV.appendChild(RANGE1);
+BARNAV.appendChild(LABEL2);
+BARNAV.appendChild(RANGE2);
+BARNAV.appendChild(LABEL3);
+BARNAV.appendChild(RANGE3);
 document.body.appendChild(CANVAS);
 
 BARNAV.addEventListener("click", cleanUp);
@@ -41,7 +66,7 @@ function generateArt() {
       BRUSH.style.left = `${randomPositionX()}%`;
       BRUSH.style.transform = `rotate(${randomAngle()}deg)`;
       BRUSH.style.borderRadius = `${randomBorder()}px`;
-      BRUSH.style.opacity = `${randomOpacity()}`;
+      BRUSH.style.opacity = opacity;
       // BRUSH.getContext("2d").drawImage(
       //   IMAGE,
       //   10,
@@ -84,16 +109,16 @@ function randomPositionY() {
 }
 
 function randomBorder() {
-  return Math.floor(Math.random() * 100);
+  return Math.floor(Math.random() * radius);
 }
 
 function randomAngle() {
   return Math.floor(Math.random() * 360);
 }
 
-function randomOpacity() {
-  return Math.random().toFixed(2);
-}
+// function randomOpacity() {
+//   return Math.random().toFixed(2);
+// }
 
 function cleanUp() {
   const BRUSHES = document.querySelectorAll("canvas");
@@ -104,11 +129,27 @@ function cleanUp() {
 
 generateArt();
 
-const inputs = document.querySelectorAll("input");
+const inputsize = document.querySelector("#size");
 
-inputs.forEach((input) => input.addEventListener("change", handleUpdate));
-inputs.forEach((input) => input.addEventListener("mousemove", handleUpdate));
+inputsize.addEventListener("change", handleUpdate);
+inputsize.addEventListener("mousemove", handleUpdate);
 
 function handleUpdate() {
   size = this.value;
+}
+
+const inputradius = document.querySelector("#radius");
+inputradius.addEventListener("change", handleUpdateRadius);
+inputradius.addEventListener("mousemove", handleUpdateRadius);
+
+function handleUpdateRadius() {
+  radius = this.value;
+}
+
+const inputOpacity = document.querySelector("#opacity");
+inputOpacity.addEventListener("change", handleUpdateOpacity);
+inputOpacity.addEventListener("mousemove", handleUpdateOpacity);
+
+function handleUpdateOpacity() {
+  opacity = this.value;
 }
