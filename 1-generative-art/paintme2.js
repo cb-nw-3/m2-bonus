@@ -82,7 +82,7 @@ function generateArt() {
       //   50
       // );
       CANVAS.appendChild(BRUSH);
-    }, 5 * i);
+    }, 15 * i);
   }
   CANVAS.appendChild(IMAGE);
 }
