@@ -7,15 +7,15 @@ main.appendChild(mainDiv);
 
 const canvas = document.querySelector('#canvas');
 
-let widths = 50;
-let heights = 25;
+let userWidths = 50;
+let userHeights = 25;
 
 const widthSize = document.querySelector('#width');
     widthSize.addEventListener("change", updateWidth);
     widthSize.addEventListener("mousemove", updateWidth);
 
 function updateWidth() {
-    widths = this.value;
+    userWidths = this.value;
 }
 
 const heightSize = document.querySelector('#height');
@@ -23,7 +23,7 @@ const heightSize = document.querySelector('#height');
     heightSize.addEventListener("mousemove", updateheight);
 
 function updateheight() {
-    heights = this.value;
+    userHeights = this.value;
 }
 
 //Refresh button
@@ -34,8 +34,8 @@ function refreshButton() {
     let styleButton = refresh.style;
     let turnDiv = Math.floor(Math.random() * 180);
 
-    styleButton.width =  (Math.random() * widths) + 10 + 'px';
-    styleButton.height =  (Math.random() * heights) + 10 + 'px';
+    styleButton.width =  (Math.random() * userWidths) + 10 + 'px';
+    styleButton.height =  (Math.random() * userHeights) + 10 + 'px';
     styleButton.left = Math.random() * 90 + 1 + '%';
     styleButton.top = Math.random() * 70 + 15 + '%';
     styleButton.transform = "rotate(" + turnDiv + "deg)";
@@ -63,8 +63,8 @@ function generateArt() {
             let styleDivs = divs.style;
             let turnDiv = Math.floor(Math.random() * 180);
 
-            styleDivs.width = (Math.random() * widths) + 10 + 'px';
-            styleDivs.height = (Math.random() * heights) + 15 + 'px';
+            styleDivs.width = (Math.random() * userWidths) + 10 + 'px';
+            styleDivs.height = (Math.random() * userHeights) + 15 + 'px';
             styleDivs.left = Math.random() * 90 + 1 + '%';
             styleDivs.top = Math.random() * 70 + 15 + '%';
             styleDivs.transform = "rotate(" + turnDiv + "deg)";
