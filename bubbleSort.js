@@ -15,6 +15,19 @@ function bubbleSort(arr) {
 // Tests
 // (Add some others!)
 compareArrays(bubbleSort([1, 5, 2, 4, 3]), [1, 2, 3, 4, 5]);
+compareArrays(bubbleSort([1, 5, 2, 4, 3]), [1, 2, 3, 4, 5]);
+compareArrays(bubbleSort([9, 5, 2, 4, 3, 1]), [1, 2, 3, 4, 5, 9]);
+compareArrays(bubbleSort([9, 5, 2, 4, 9, 3, 1]), [1, 2, 3, 4, 5, 9, 9]);
+compareArrays(bubbleSort([9, 5, 2, 32, 4, 9, 3, 1]), [
+  1,
+  2,
+  3,
+  4,
+  5,
+  9,
+  9,
+  32,
+]);
 
 // Test code
 function compareArrays(arr1, arr2) {
