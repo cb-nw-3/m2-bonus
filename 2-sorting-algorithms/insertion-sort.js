@@ -19,7 +19,7 @@ function insertionSort(arr) {
         // initiate a counter
         let counter = i;
         // while couple are not in order
-        while (arr[counter] < arr[counter - 1]) {
+        while (counter >= 0 && arr[counter] < arr[counter - 1]) {
           // swap numbers
           arr[counter] = arr[counter - 1];
           arr[counter - 1] = tempVar;

@@ -1,6 +1,4 @@
 function selectionSort(arr) {
-  // initialize empty result array
-  let sortedArray = [];
   // create random variable to store a value 
   let temporaryValue;
   // loop through the array twice
@@ -16,10 +14,8 @@ function selectionSort(arr) {
         arr[i] = temporaryValue;
       }
     }
-    // add small value in result array
-    sortedArray.push(arr[i]);
   }
-  return sortedArray
+  return arr
 }
 
 // Tests
