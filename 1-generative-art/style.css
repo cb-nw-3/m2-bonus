@@ -12,6 +12,7 @@ header{
     align-items: center;
     border-radius: 5px;
     width: 100vw;
+    position: relative;
 }
 
 h1{
