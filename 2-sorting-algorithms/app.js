@@ -7,6 +7,9 @@ let bubbleButton = document.querySelector('.bubble');
 let resetButton = document.querySelector('.reset');
 let elementGrid;
 let randomArrayElement;
+let selectionInterval;
+let insertionInterval;
+let bubbleInterval;
 
 randomArrayLength.addEventListener('change', generateArray)
 selectionButton.addEventListener('click', selectionSort)
@@ -29,6 +32,14 @@ function generateArray() {
   }
   diagramGrid.style.gridTemplateColumns = `repeat(${randomArrayLength.value}, 1fr)`;
   diagramGrid.style.gridTemplateRow = `1fr`;
+
+  selectionButton.removeEventListener('click', selectionSort)
+  insertionButton.removeEventListener('click', insertionSort)
+  bubbleButton.removeEventListener('click', bubbleSort)
+  selectionButton.addEventListener('click', selectionSort)
+  insertionButton.addEventListener('click', insertionSort)
+  bubbleButton.addEventListener('click', bubbleSort)
+
 }
 
 function resetGrid() {
@@ -38,17 +49,13 @@ function resetGrid() {
 }
 
 function resetButtons() {
-
+  selectionButton.addEventListener('click', selectionSort)
+  insertionButton.addEventListener('click', insertionSort)
+  bubbleButton.addEventListener('click', bubbleSort)
+  resetGrid()
 }
 
 function switchDivs(elem1, elem2) {
-  // let temp = document.createElement('div');
-  // let number1 = document.querySelector('#element-1');
-  // let number2 = document.querySelector('#element-3');
-  // number1.parentNode.insertBefore(temp, number1);
-  // number2.parentNode.insertBefore(number1, number2);
-  // temp.parentNode.insertBefore(number2, temp);
-  // temp.parentNode.removeChild(temp);
   let temp = document.createElement('div');
   elem1.parentNode.insertBefore(temp, elem1);
   elem2.parentNode.insertBefore(elem1, elem2);
@@ -57,6 +64,11 @@ function switchDivs(elem1, elem2) {
 }
 
 function bubbleSort() {
+  if (diagramGrid.childElementCount !== 0) {
+    selectionButton.removeEventListener('click', selectionSort)
+    insertionButton.removeEventListener('click', insertionSort)
+  }
+
   let tempVar;
   for (let i = diagramGrid.childElementCount - 1; i > 0; i--) {
     for (let j = 0; j < i; j++) {
@@ -68,10 +80,13 @@ function bubbleSort() {
   }
 }
 
-function insertionSort(arr) {
-  let tempVar;
+function insertionSort() {
+  if (diagramGrid.childElementCount !== 0) {
+    selectionButton.removeEventListener('click', selectionSort)
+    bubbleButton.removeEventListener('click', bubbleSort)
+  }
+
   for (let i = 0; i < diagramGrid.childElementCount; i++) {
-    tempVar = diagramGrid.children[i];
     if (i === 0) {
       if (diagramGrid.children[i].offsetHeight > diagramGrid.children[i + 1].offsetHeight) {
         switchDivs(diagramGrid.children[i], diagramGrid.children[i + 1])
@@ -83,22 +98,22 @@ function insertionSort(arr) {
           switchDivs(diagramGrid.children[counter], diagramGrid.children[counter - 1])
           counter--;
         }   
-          console.log(diagramGrid.children)
       }
     }
   }
 }
 
-function selectionSort(arr) {
-  let temporaryValue;
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = i; j < arr.length; j++) {
-      if (arr[i] > arr[j]) {
-        temporaryValue = arr[j];
-        arr[j] = arr[i];
-        arr[i] = temporaryValue;
+function selectionSort() {
+  if (diagramGrid.childElementCount !== 0) {
+    insertionButton.removeEventListener('click', insertionSort)
+    bubbleButton.removeEventListener('click', bubbleSort)
+  }
+
+  for (let i = 0; i < diagramGrid.childElementCount; i++) {
+    for (let j = i; j < diagramGrid.childElementCount; j++) {
+      if (diagramGrid.children[i].offsetHeight > diagramGrid.children[j].offsetHeight) {
+        switchDivs(diagramGrid.children[i], diagramGrid.children[j])
       }
     }
   }
-  return sortedArray
 }
