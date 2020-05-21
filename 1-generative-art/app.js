@@ -26,23 +26,27 @@ function updateheight() {
     userHeights = this.value;
 }
 
+function styleElement(element) {
+    let turnDiv = Math.floor(Math.random() * 180);
+
+    element.width =  (Math.random() * userWidths) + 10 + 'px';
+    element.height =  (Math.random() * userHeights) + 10 + 'px';
+    element.left = Math.random() * 95 + '%';
+    element.top = Math.random() * 70 + 15 + '%';
+    element.transform = "rotate(" + turnDiv + "deg)";
+    element.opacity = Math.random() * 1 + 0.5;
+    element.borderRadius = Math.random() * 10 + 1 + 'px';
+    element.boxShadow = (Math.random() * 3 + 'px' + ' ' + Math.random() * 3 + 'px');
+}
+
 //Refresh button
 let refresh = document.querySelector('#refresh');
 function refreshButton() {
 
     canvas.innerHTML = '';
     let styleButton = refresh.style;
-    let turnDiv = Math.floor(Math.random() * 180);
 
-    styleButton.width =  (Math.random() * userWidths) + 10 + 'px';
-    styleButton.height =  (Math.random() * userHeights) + 10 + 'px';
-    styleButton.left = Math.random() * 90 + 1 + '%';
-    styleButton.top = Math.random() * 70 + 15 + '%';
-    styleButton.transform = "rotate(" + turnDiv + "deg)";
-    styleButton.opacity = Math.random() * 1 + 0.5;
-    styleButton.borderRadius = Math.random() * 10 + 1 + 'px';
-    styleButton.boxShadow = (Math.random() * 3 + 'px' + ' ' + Math.random() * 3 + 'px');
-
+    styleElement(styleButton);
     let classes = Math.floor(Math.random() * 6);
     refresh.className = `class${classes + 1}`;
 }
@@ -61,16 +65,8 @@ function generateArt() {
             divs.id = `div-${i + 1}`;
         
             let styleDivs = divs.style;
-            let turnDiv = Math.floor(Math.random() * 180);
 
-            styleDivs.width = (Math.random() * userWidths) + 10 + 'px';
-            styleDivs.height = (Math.random() * userHeights) + 15 + 'px';
-            styleDivs.left = Math.random() * 90 + 1 + '%';
-            styleDivs.top = Math.random() * 70 + 15 + '%';
-            styleDivs.transform = "rotate(" + turnDiv + "deg)";
-            styleDivs.opacity = Math.random() * 1 + 0.2;
-            styleDivs.borderRadius = Math.random() * 10 + 1 + 'px';
-            styleDivs.boxShadow = (Math.random() * 3 + 'px' + ' ' + Math.random() * 3 + 'px');
+            styleElement(styleDivs);
         
             let classes = Math.floor(Math.random() * 6);
                 divs.className = `class${classes + 1}`;
