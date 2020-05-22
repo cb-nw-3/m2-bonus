@@ -11,6 +11,7 @@ let randomArrayElement;
 let selectionInterval;
 let insertionInterval;
 let bubbleInterval;
+let intervalDelay;
 
 // add eventListeners on input and buttons
 randomArrayLength.addEventListener('change', generateArray)
@@ -88,6 +89,13 @@ function bubbleSort() {
     insertionButton.removeEventListener('click', insertionSort)
     bubbleButton.removeEventListener('click', bubbleSort)
   }
+  if (diagramGrid.childElementCount < 41) {
+    intervalDelay = 50;
+  } else if (diagramGrid.childElementCount < 81) {
+    intervalDelay = 30;
+  } else {
+    intervalDelay = 5;
+  }
   // create counters
   let i = diagramGrid.childElementCount - 1;
   let j = 0;
@@ -109,7 +117,7 @@ function bubbleSort() {
     if (i === 0) {
       clearInterval(bubbleInterval)
     }
-  }, 10);
+  }, intervalDelay);
 }
 
 function insertionSort() {
@@ -118,6 +126,13 @@ function insertionSort() {
     selectionButton.removeEventListener('click', selectionSort)
     insertionButton.removeEventListener('click', insertionSort)
     bubbleButton.removeEventListener('click', bubbleSort)
+  }
+  if (diagramGrid.childElementCount < 41) {
+    intervalDelay = 100;
+  } else if (diagramGrid.childElementCount < 81) {
+    intervalDelay = 50;
+  } else {
+    intervalDelay = 30;
   }
   // create counter
   let i = 0;
@@ -146,7 +161,7 @@ function insertionSort() {
     if (i >= diagramGrid.childElementCount) {
       clearInterval(insertionInterval)
     }
-  }, 50);
+  }, intervalDelay);
 }
 
 function selectionSort() {
@@ -155,6 +170,13 @@ function selectionSort() {
     selectionButton.removeEventListener('click', selectionSort)
     insertionButton.removeEventListener('click', insertionSort)
     bubbleButton.removeEventListener('click', bubbleSort)
+  }
+  if (diagramGrid.childElementCount < 41) {
+    intervalDelay = 50;
+  } else if (diagramGrid.childElementCount < 81) {
+    intervalDelay = 30;
+  } else {
+    intervalDelay = 5;
   }
   // create "global counters"
   let i = 0;
@@ -177,5 +199,5 @@ function selectionSort() {
     if (i > diagramGrid.childElementCount || j > diagramGrid.childElementCount) {
       clearInterval(selectionInterval)
     }
-  }, 10)
+  }, intervalDelay)
 }
