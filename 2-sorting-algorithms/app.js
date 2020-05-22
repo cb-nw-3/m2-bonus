@@ -48,6 +48,9 @@ function generateArray() {
   selectionButton.addEventListener('click', selectionSort)
   insertionButton.addEventListener('click', insertionSort)
   bubbleButton.addEventListener('click', bubbleSort)
+  clearInterval(bubbleInterval)
+  clearInterval(insertionInterval)
+  clearInterval(selectionInterval)
 }
 
 function resetGrid() {
@@ -83,64 +86,96 @@ function bubbleSort() {
   if (diagramGrid.childElementCount !== 0) {
     selectionButton.removeEventListener('click', selectionSort)
     insertionButton.removeEventListener('click', insertionSort)
+    bubbleButton.removeEventListener('click', bubbleSort)
   }
-  // loop through childs from first to last and remove one each increment
-  for (let i = diagramGrid.childElementCount - 1; i > 0; i--) {
-    for (let j = 0; j < i; j++) {
-      // check if next div is higher
-      if (diagramGrid.children[j].offsetHeight > diagramGrid.children[j + 1].offsetHeight) {
-        // function call
-        switchDivs(diagramGrid.children[j], diagramGrid.children[j + 1])
-      }
+  // create counters
+  let i = diagramGrid.childElementCount - 1;
+  let j = 0;
+  // create interval
+  bubbleInterval = setInterval(() => {
+    // if j reaches the end of array, increment i and restart j
+    if (j === i) {
+      i--;
+      j = 0;
     }
-  }
+    // check if divs is higher than next one
+    if (diagramGrid.children[j].offsetHeight > diagramGrid.children[j + 1].offsetHeight) {
+      // function call
+      switchDivs(diagramGrid.children[j], diagramGrid.children[j + 1])
+    }
+    // increment j
+    j++;
+    // clear interval if i passed through all the array
+    if (i === 0) {
+      clearInterval(bubbleInterval)
+    }
+  }, 10);
 }
 
 function insertionSort() {
   // remove event listeners
   if (diagramGrid.childElementCount !== 0) {
     selectionButton.removeEventListener('click', selectionSort)
+    insertionButton.removeEventListener('click', insertionSort)
     bubbleButton.removeEventListener('click', bubbleSort)
   }
-  // loop through childs from 1 to last
-  for (let i = 0; i < diagramGrid.childElementCount; i++) {
-    if (i === 0) {
-      // check if next div is higher
-      if (diagramGrid.children[i].offsetHeight > diagramGrid.children[i + 1].offsetHeight) {
-        // function call
-        switchDivs(diagramGrid.children[i], diagramGrid.children[i + 1])
-      }
-    } else {
-      // check if previous div is higher
-      if (diagramGrid.children[i].offsetHeight < diagramGrid.children[i - 1].offsetHeight) {
-        // initialize counter
-        let counter = i;
-        // do something while previous div is higher until counter reaches 0
-        while (counter > 0 && diagramGrid.children[counter].offsetHeight < diagramGrid.children[counter - 1].offsetHeight) {
-          // function call
-          switchDivs(diagramGrid.children[counter], diagramGrid.children[counter - 1])
-          // decrement counter
-          counter--;
-        }   
-      }
+  // create counter
+  let i = 0;
+  // create interval
+  insertionInterval = setInterval(() => {
+    // check if first and second element are in order
+    if (diagramGrid.children[0].offsetHeight > diagramGrid.children[1].offsetHeight) {
+      // function call
+      switchDivs(diagramGrid.children[0], diagramGrid.children[1])
     }
-  }
+    // bring low divs as far before as possible
+    if (i > 0 && diagramGrid.children[i].offsetHeight < diagramGrid.children[i - 1].offsetHeight) {
+      // initiate decrementing counter
+      let counter = i;
+      // while current div is lower than previous swap them
+      while (counter > 0 && diagramGrid.children[counter].offsetHeight < diagramGrid.children[counter - 1].offsetHeight) {
+        // function call
+        switchDivs(diagramGrid.children[counter], diagramGrid.children[counter - 1])
+        // decrement counter
+        counter--;
+      }   
+    }
+    // increment counter
+    i++;
+    // clear interval if counter is not in array
+    if (i >= diagramGrid.childElementCount) {
+      clearInterval(insertionInterval)
+    }
+  }, 50);
 }
 
 function selectionSort() {
   // remove event listeners
   if (diagramGrid.childElementCount !== 0) {
+    selectionButton.removeEventListener('click', selectionSort)
     insertionButton.removeEventListener('click', insertionSort)
     bubbleButton.removeEventListener('click', bubbleSort)
   }
-  // loop through childs from first to last, second to last ...
-  for (let i = 0; i < diagramGrid.childElementCount; i++) {
-    for (let j = i; j < diagramGrid.childElementCount; j++) {
-      // swap elements if higher
-      if (diagramGrid.children[i].offsetHeight > diagramGrid.children[j].offsetHeight) {
-        // function call
-        switchDivs(diagramGrid.children[i], diagramGrid.children[j])
-      }
+  // create "global counters"
+  let i = 0;
+  let j = i;
+  // create interval
+  selectionInterval = setInterval(() => {
+    // if j reaches end of array, iterate i and start over
+    if (j === diagramGrid.childElementCount) {
+      i++;
+      j = i;
     }
-  }
+    // check if height is in order
+    if (i < diagramGrid.childElementCount && j < diagramGrid.childElementCount && diagramGrid.children[i].offsetHeight > diagramGrid.children[j].offsetHeight) {
+      // function call
+      switchDivs(diagramGrid.children[i], diagramGrid.children[j])
+    }
+    // iterate j
+    j++;
+    // if j or i goes outside of array clear the interval
+    if (i > diagramGrid.childElementCount || j > diagramGrid.childElementCount) {
+      clearInterval(selectionInterval)
+    }
+  }, 10)
 }
