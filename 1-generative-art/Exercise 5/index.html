@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+  <head>
+    <title>CB-NW-3 Bonus Art Project</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="controls">
+      <div class="width">
+        <div class="liveValue">
+          <p>Width</p>
+          <p id="widthValue">20</p>
+        </div>
+        <input type="range" min="0" max="75" value="20" id="sliderWidth">
+      </div>
+      <div class="height">
+        <div class="liveValue">
+          <p>Height</p>
+          <p id="heightValue">10</p>
+        </div>
+        <input type="range" min="0" max="100" value="10" id="sliderHeight">
+      </div>
+      <div class="gradient">
+        <div class="liveValue">
+          <p>Gradient</p>
+          <p id="gradientValue">100</p>
+        </div>
+        <input type="range" min="0" max="100" value="100" id="sliderGradient">
+      </div>
+    </div>
+    <div id="canvas"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
